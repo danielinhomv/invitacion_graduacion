@@ -17,7 +17,7 @@
        promo: "D'COUSS",
        year: '2026',
        school: 'COL. HNOS. CAVANIS',                // texto de la cinta
-       schoolFull: 'Unidad Educativa Hnos. Cavanis',// texto del mensaje de WhatsApp
+       schoolFull: 'Colegio Hnos. Cavanis',// texto del mensaje de WhatsApp
        slogan: 'Juntos estamos siempre unidos por un sueño',
        tutor: '',                                   // ej: 'MARÍA PÉREZ' (si queda vacío se usa un texto general)
    
