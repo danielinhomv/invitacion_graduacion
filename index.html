@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Invitación · Promoción 2026</title>
+    <meta name="theme-color" content="#1f050d">
+    <meta property="og:title" content="Estás invitado · Promoción 2026">
+    <meta property="og:description" content="Acompáñanos a celebrar nuestra graduación.">
+    <meta property="og:image" content="foto-grupal.jpeg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Allura&family=Anton&family=Cinzel:wght@400;600;700&family=Merienda:wght@400;500&family=Oswald:wght@500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Quicksand:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- ============ Definiciones SVG reutilizables ============ -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <defs>
+            <linearGradient id="gMetal" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#fffbee" />
+                <stop offset=".3" stop-color="#f6e9c1" />
+                <stop offset=".55" stop-color="#d9c184" />
+                <stop offset=".78" stop-color="#faf0cf" />
+                <stop offset="1" stop-color="#b9a266" />
+            </linearGradient>
+            <radialGradient id="gSeal" cx=".35" cy=".3" r=".95">
+                <stop offset="0" stop-color="#fffbee" />
+                <stop offset=".5" stop-color="#e2cb8f" />
+                <stop offset="1" stop-color="#9c8548" />
+            </radialGradient>
+            <linearGradient id="gFlap" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#651829" />
+                <stop offset="1" stop-color="#3a0b17" />
+            </linearGradient>
+            <linearGradient id="gFlapIn" x1="0" y1="1" x2="0" y2="0">
+                <stop offset="0" stop-color="#5c1426" />
+                <stop offset="1" stop-color="#8f2a3f" />
+            </linearGradient>
+            <linearGradient id="gPocketL" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#34091a" />
+                <stop offset="1" stop-color="#5a1325" />
+            </linearGradient>
+            <linearGradient id="gPocketR" x1="1" y1="0" x2="0" y2="0">
+                <stop offset="0" stop-color="#34091a" />
+                <stop offset="1" stop-color="#5a1325" />
+            </linearGradient>
+            <linearGradient id="gPocketB" x1="0" y1="1" x2="0" y2="0">
+                <stop offset="0" stop-color="#2c0813" />
+                <stop offset="1" stop-color="#561224" />
+            </linearGradient>
+            <linearGradient id="gLight" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#fff3cf" stop-opacity=".95" />
+                <stop offset="1" stop-color="#f0c987" stop-opacity="0" />
+            </linearGradient>
+
+            <!-- Birrete (los colores se controlan con las clases .v-maroon / .v-cream) -->
+            <symbol id="cap" viewBox="0 0 200 140">
+                <path d="M50 64v34c0 20 100 20 100 0V64z" style="fill:var(--cap-dark)" />
+                <path d="M50 90c0 22 100 22 100 0v10c0 22-100 22-100 0z" style="fill:var(--cap-band)" />
+                <path d="M4 52 100 90v10L4 62z" style="fill:var(--cap-side)" />
+                <path d="M196 52 100 90v10l96-38z" style="fill:var(--cap-side)" />
+                <path d="M100 10 196 48 100 86 4 48z" style="fill:var(--cap-top)" />
+                <path d="M100 10 196 48 100 86 4 48z" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.6"
+                    stroke-linejoin="round" />
+                <path d="M100 48 168 56v44" fill="none" style="stroke:var(--cap-cord)" stroke-width="3.2"
+                    stroke-linecap="round" />
+                <circle cx="100" cy="48" r="5.5" style="fill:var(--cap-cord)" />
+                <rect x="163" y="98" width="10" height="9" rx="2" style="fill:var(--cap-cord)" />
+                <path d="M162 107h12l3 29h-18z" style="fill:var(--cap-cord)" />
+                <path d="M165 110v24M168 110v26M171 110v24" stroke="rgba(0,0,0,.18)" stroke-width="1" />
+            </symbol>
+
+            <!-- Silueta de graduado con los brazos arriba -->
+            <symbol id="person" viewBox="0 0 40 80">
+                <circle cx="20" cy="17" r="8" />
+                <path d="M9 80 11 38c3-6 15-6 18 0l2 42z" />
+                <path d="M11 40 3 10l5-2 9 28zM29 40l8-30-5-2-9 28z" />
+            </symbol>
+        </defs>
+    </svg>
+
+    <main class="stage" id="stage" data-scene="0">
+
+        <!-- Fondo y efectos -->
+        <div class="bg"></div>
+        <div class="frame"></div>
+        <div class="streamers" id="streamers"></div>
+        <div class="balloons top" id="balloons-top"></div>
+        <div class="balloons bottom" id="balloons-bottom"></div>
+
+        <!-- Barras de progreso + sonido -->
+        <div class="progress" id="progress" aria-hidden="true"></div>
+        <button class="sound" id="sound" type="button" aria-label="Activar música" aria-pressed="false" data-on="0">
+            <svg class="ic-off" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor" />
+                <path d="m16 9 5 6m0-6-5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            <svg class="ic-on" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor" />
+                <path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" />
+            </svg>
+        </button>
+
+        <!-- ========== ESCENA 0 · Sobre ========== -->
+        <section class="scene s0" id="scene-0" aria-label="Sobre de invitación">
+            <div class="intro">
+                <p class="intro-script metal-txt">Estás invitado</p>
+                <p class="intro-hint">Toca el sello para abrir</p>
+            </div>
+
+            <div class="title0">
+                <p class="t-pre metal-txt">PROMOCIÓN</p>
+                <p class="t-year metal-txt">2026</p>
+                <h1 class="t-name metal-txt fit" data-bind="promo" data-fit></h1>
+            </div>
+
+            <div class="env-wrap">
+                <div class="env-rays"></div>
+                <button class="envelope" id="envelope" type="button" aria-label="Abrir invitación">
+                    <svg class="env-svg" viewBox="-10 -130 420 420" aria-hidden="true">
+                        <ellipse cx="200" cy="280" rx="190" ry="9" fill="rgba(0,0,0,.45)" />
+                        <rect x="0" y="0" width="400" height="270" rx="6" fill="#3a0b17" stroke="#e9d6a0"
+                            stroke-opacity=".7" stroke-width="2" />
+                        <polygon class="flap-open" points="0,0 400,0 200,-124" fill="url(#gFlapIn)" stroke="#e9d6a0"
+                            stroke-opacity=".7" stroke-width="2" stroke-linejoin="round" />
+                        <polygon points="0,0 400,0 200,150" fill="#2b0710" />
+                        <polygon class="lining-light" points="0,0 400,0 200,150" fill="url(#gLight)" />
+                        <polygon points="0,0 200,150 0,270" fill="url(#gPocketL)" stroke="#e9d6a0" stroke-opacity=".55"
+                            stroke-width="1.6" stroke-linejoin="round" />
+                        <polygon points="400,0 200,150 400,270" fill="url(#gPocketR)" stroke="#e9d6a0"
+                            stroke-opacity=".55" stroke-width="1.6" stroke-linejoin="round" />
+                        <polygon points="0,270 200,138 400,270" fill="url(#gPocketB)" stroke="#e9d6a0"
+                            stroke-opacity=".55" stroke-width="1.6" stroke-linejoin="round" />
+                        <g class="flap-closed">
+                            <polygon points="0,0 400,0 200,168" fill="url(#gFlap)" stroke="#e9d6a0" stroke-opacity=".8"
+                                stroke-width="2.4" stroke-linejoin="round" />
+                        </g>
+                        <g class="seal">
+                            <circle cx="200" cy="168" r="31" fill="url(#gSeal)" stroke="#7a6636" stroke-width="1.5" />
+                            <circle cx="200" cy="168" r="23" fill="none" stroke="#6b5628" stroke-opacity=".6"
+                                stroke-width="1.2" />
+                            <text id="sealLetter" x="200" y="169" text-anchor="middle"
+                                dominant-baseline="central">D</text>
+                        </g>
+                    </svg>
+                </button>
+                <div class="env-glow"></div>
+            </div>
+        </section>
+
+        <!-- ========== ESCENA 1 · Emblema ========== -->
+        <section class="scene s1" id="scene-1" aria-label="Promoción">
+            <div class="emblem">
+                <svg class="cap v-maroon cap-emblem" viewBox="0 0 200 140" aria-hidden="true">
+                    <use href="#cap" />
+                </svg>
+                <div class="ring"></div>
+                <div class="ring-edge"></div>
+                <div class="emblem-core">
+                    <p class="e-pre metal-txt">PROMOCIÓN</p>
+                    <p class="e-year metal-txt glitter">2026</p>
+                    <h2 class="e-name metal-txt fit" data-bind="promo" data-fit></h2>
+                </div>
+                <div class="ribbon"><span class="fit" data-bind="school" data-fit></span></div>
+            </div>
+
+            <svg class="crowd v-cream" viewBox="0 0 400 130" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+                <g fill="url(#gMetal)">
+                    <use href="#person" x="2" y="62" width="34" height="68" />
+                    <use href="#person" x="44" y="50" width="40" height="80" />
+                    <use href="#person" x="92" y="58" width="36" height="72" />
+                    <use href="#person" x="136" y="46" width="42" height="84" />
+                    <use href="#person" x="186" y="58" width="36" height="72" />
+                    <use href="#person" x="230" y="46" width="42" height="84" />
+                    <use href="#person" x="280" y="58" width="36" height="72" />
+                    <use href="#person" x="322" y="50" width="40" height="80" />
+                    <use href="#person" x="366" y="62" width="34" height="68" />
+                </g>
+                <use class="toss" style="--d:0s" href="#cap" x="20" y="18" width="28" height="20"
+                    transform="rotate(-18 34 28)" />
+                <use class="toss" style="--d:.6s" href="#cap" x="80" y="4" width="30" height="21"
+                    transform="rotate(12 95 14)" />
+                <use class="toss" style="--d:1.2s" href="#cap" x="150" y="14" width="26" height="18"
+                    transform="rotate(-8 163 23)" />
+                <use class="toss" style="--d:.3s" href="#cap" x="205" y="2" width="30" height="21"
+                    transform="rotate(20 220 12)" />
+                <use class="toss" style="--d:.9s" href="#cap" x="268" y="16" width="28" height="20"
+                    transform="rotate(-14 282 26)" />
+                <use class="toss" style="--d:1.5s" href="#cap" x="330" y="6" width="30" height="21"
+                    transform="rotate(10 345 16)" />
+                <use class="toss" style="--d:.45s" href="#cap" x="372" y="26" width="24" height="17"
+                    transform="rotate(-20 384 34)" />
+            </svg>
+        </section>
+
+        <!-- ========== ESCENA 2 · Mensaje ========== -->
+        <section class="scene s2" id="scene-2" aria-label="Mensaje">
+            <div class="head">
+                <svg class="cap v-cream cap-head" viewBox="0 0 200 140" aria-hidden="true">
+                    <use href="#cap" />
+                </svg>
+                <p class="h-pre metal-txt">PROMOCIÓN</p>
+                <h2 class="h-name metal-txt fit" data-bind="promo" data-fit></h2>
+                <p class="h-slogan" data-bind="slogan"></p>
+            </div>
+
+            <div class="message">
+                <p class="l" style="--i:0">Hoy cerramos una etapa</p>
+                <p class="l" style="--i:1">que quedará para siempre</p>
+                <p class="l" style="--i:2">en nuestros recuerdos…</p>
+                <p class="l" style="--i:3">y abrimos las puertas a</p>
+                <p class="l" style="--i:4">nuevos sueños, nuevas</p>
+                <p class="l" style="--i:5">metas y nuevos</p>
+                <p class="l" style="--i:6">aprendizajes.</p>
+            </div>
+
+            <div class="year-cap">
+                <svg class="cap v-cream" viewBox="0 0 200 140" aria-hidden="true">
+                    <use href="#cap" />
+                </svg>
+                <p class="yc-year metal-txt glitter" data-bind="year"></p>
+            </div>
+        </section>
+
+        <!-- ========== ESCENA 3 · Detalles del evento ========== -->
+        <section class="scene s3" id="scene-3" aria-label="Fecha y lugar">
+            <svg class="cap v-cream cap-head" viewBox="0 0 200 140" aria-hidden="true">
+                <use href="#cap" />
+            </svg>
+
+            <p class="d-lead">Por eso queremos que seas parte de este día tan especial</p>
+            <p class="d-script metal-txt">Acompáñanos a Celebrar</p>
+
+            <div class="d-date">
+                <span class="d-num metal-txt" data-bind="dayNum"></span>
+                <span class="d-text">
+                    <span class="d-wd" data-bind="weekday"></span>
+                    <span class="d-mo" data-bind="month"></span>
+                </span>
+            </div>
+
+            <div class="d-time">
+                <span class="dots"></span>
+                <p data-bind="time"></p>
+                <span class="dots"></span>
+            </div>
+
+            <div class="d-place">
+                <svg class="pin" viewBox="0 0 100 100" aria-hidden="true">
+                    <path d="M50 10c-14 0-25 11-25 25 0 18 25 40 25 40s25-22 25-40c0-14-11-25-25-25z" fill="none"
+                        stroke="url(#gMetal)" stroke-width="3.2" stroke-linejoin="round" />
+                    <circle cx="50" cy="35" r="9" fill="none" stroke="url(#gMetal)" stroke-width="3.2" />
+                    <path d="M14 80 50 66l36 14-36 14z" fill="none" stroke="url(#gMetal)" stroke-width="3"
+                        stroke-linejoin="round" />
+                </svg>
+                <p class="p-kind" data-bind="venueKind"></p>
+                <p class="p-name metal-txt" data-bind="venueName"></p>
+                <p class="p-city" data-bind="venueCity"></p>
+                <a class="maps-btn" id="mapsBtn" href="#" target="_blank" rel="noopener" hidden>Cómo llegar</a>
+            </div>
+        </section>
+
+        <!-- ========== ESCENA 4 · Fotos ========== -->
+        <section class="scene s4" id="scene-4" aria-label="Fotos de la promoción">
+            <figure class="photo-main">
+                <div class="pm-frame">
+                    <img src="foto-grupal.jpeg" alt="Foto grupal de la promoción" draggable="false">
+                    <svg class="cap v-maroon pm-cap pm-cap-l" viewBox="0 0 200 140" aria-hidden="true">
+                        <use href="#cap" />
+                    </svg>
+                    <svg class="cap v-maroon pm-cap pm-cap-r" viewBox="0 0 200 140" aria-hidden="true">
+                        <use href="#cap" />
+                    </svg>
+                </div>
+                <figcaption class="pm-ribbon"><span class="metal-txt">PROMO</span></figcaption>
+            </figure>
+
+            <figure class="photo-card">
+                <div class="pc-inner">
+                    <img src="foto-individual.jpeg" alt="Graduada de la promoción" draggable="false">
+                </div>
+                <figcaption>Graduación <span data-bind="year"></span></figcaption>
+            </figure>
+        </section>
+
+        <!-- ========== ESCENA 5 · Agradecimiento ========== -->
+        <section class="scene s5" id="scene-5" aria-label="Agradecimientos">
+            <svg class="cap v-cream cap-head" viewBox="0 0 200 140" aria-hidden="true">
+                <use href="#cap" />
+            </svg>
+
+            <div class="thanks">
+                <p style="--i:0">A nuestros Padres,<br>gracias por caminar a nuestro lado y por creer en nosotros
+                    incluso cuando el camino parecía difícil.</p>
+                <p style="--i:1">A nuestros maestros,<br>gracias por enseñarnos mucho más que una lección.</p>
+                <p style="--i:2" id="tutorPara"></p>
+                <p style="--i:3" class="big"><strong>GRACIAS,</strong><br>por acompañarnos en este momento tan
+                    significativo para nosotros.</p>
+            </div>
+
+            <div class="year-cap small">
+                <svg class="cap v-cream" viewBox="0 0 200 140" aria-hidden="true">
+                    <use href="#cap" />
+                </svg>
+                <p class="yc-year metal-txt glitter" data-bind="year"></p>
+            </div>
+        </section>
+
+        <!-- ========== ESCENA 6 · Cierre + Confirmación ========== -->
+        <section class="scene s6" id="scene-6" aria-label="Confirmar asistencia">
+            <div class="final-scroll">
+                <svg class="cap v-cream cap-final" viewBox="0 0 200 140" aria-hidden="true">
+                    <use href="#cap" />
+                </svg>
+                <p class="f-pre metal-txt">PROMOCIÓN</p>
+                <p class="f-year metal-txt glitter" data-bind="year"></p>
+                <h2 class="f-name metal-txt fit" data-bind="promo" data-fit></h2>
+                <p class="f-slogan" data-bind="slogan"></p>
+
+                <p class="f-script">
+                    <span>¡No Faltes!</span>
+                    <span>¡Te esperamos!</span>
+                </p>
+
+                <form class="rsvp" id="rsvp" novalidate>
+                    <h3>Confirma tu asistencia</h3>
+
+                    <div class="choice" role="radiogroup" aria-label="¿Podrás asistir?">
+                        <label><input type="radio" name="asistencia" value="si" checked><span>Sí,
+                                asistiré</span></label>
+                        <label><input type="radio" name="asistencia" value="no"><span>No podré</span></label>
+                    </div>
+
+                    <label class="field">
+                        <span>Tu nombre</span>
+                        <input id="guestName" name="nombre" type="text" placeholder="Nombre y apellido"
+                            autocomplete="name" maxlength="60" required>
+                    </label>
+
+                    <div class="field guests" id="guestsRow">
+                        <span>Personas que asistirán</span>
+                        <div class="stepper">
+                            <button type="button" id="guestMinus" aria-label="Menos personas">−</button>
+                            <output id="guestCount" aria-live="polite">1</output>
+                            <button type="button" id="guestPlus" aria-label="Más personas">+</button>
+                        </div>
+                    </div>
+
+                    <button class="wa-btn" type="submit">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill="#1fa855"
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                        </svg>
+                        <span id="waLabel">Confirmar por WhatsApp</span>
+                    </button>
+                    <p class="hint" id="rsvpHint" role="status"></p>
+                </form>
+            </div>
+        </section>
+
+        <canvas id="fx" aria-hidden="true"></canvas>
+    </main>
+
+    <audio id="bgm" src="musica.mp3" loop preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
